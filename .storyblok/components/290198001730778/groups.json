@@ -1,0 +1,30 @@
+[
+  {
+    "name": "forms",
+    "id": 142191887230508,
+    "uuid": "eea500ed-efd4-45a1-a229-a27e72a05817",
+    "parent_id": null,
+    "parent_uuid": null
+  },
+  {
+    "name": "layouts",
+    "id": 142191887955501,
+    "uuid": "edada973-72cd-4ddf-9cd8-bb5133834b74",
+    "parent_id": null,
+    "parent_uuid": null
+  },
+  {
+    "name": "sections",
+    "id": 142191889454639,
+    "uuid": "581ab107-0f2a-49b9-a8d9-8ea2d629c8af",
+    "parent_id": null,
+    "parent_uuid": null
+  },
+  {
+    "name": "shared",
+    "id": 142191889352238,
+    "uuid": "356f1cd4-8108-4f1c-bbf0-6547bb9bfc82",
+    "parent_id": null,
+    "parent_uuid": null
+  }
+]
