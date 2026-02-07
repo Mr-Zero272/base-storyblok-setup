@@ -131,6 +131,8 @@ storyblok user
 
 ### 4.2 Push Components
 
+Trước tiên bạn cần đổi tên folder `290198001730778` trong `.storyblok/components` thành `space_id` của bạn. Ví dụ `.storyblok/components/123456`. (Cách này giúp ta không cần quyền truy cập vẫn có thể copy các schema từ code lên Space)
+
 Đẩy toàn bộ cấu trúc Components (Schema) từ code lên Space mới:
 
 ```bash
