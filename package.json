@@ -7,8 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "sb:pull": "storyblok components pull -s 290198001730778",
-    "sb:types": "storyblok types generate -s 290198001730778",
+    "sb:pull": "storyblok components pull -s <SPACE_ID>",
+    "sb:types": "storyblok types generate -s <SPACE_ID>",
+    "sb:push": "storyblok components push -s <SPACE_ID>",
     "sb:refresh": "npm run sb:pull && npm run sb:types"
   },
   "dependencies": {
