@@ -1,6 +1,8 @@
-# 📘 Storyblok Project Setup – CLI Sync Workflow (Draft v2)
+# 📘 Storyblok Project Setup – CLI Sync Workflow
 
-> **Tài liệu hướng dẫn quy trình khởi tạo và phát triển dự án sử dụng Next.js, Storyblok và Tailwind CSS.**
+> **A comprehensive guide for initializing and developing projects using Next.js, Storyblok, and Tailwind CSS.**
+>
+> 📖 **[Vietnamese Version](docs/README-VI.md)** | English
 
 ![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)
 ![Storyblok](https://img.shields.io/badge/Storyblok-CMS-0AB3AF?style=for-the-badge&logo=storyblok)
@@ -9,43 +11,43 @@
 
 ---
 
-## 📋 Mục lục
+## 📋 Table of Contents
 
-- [1. Mục tiêu](#1-mục-tiêu)
-- [2. Công nghệ sử dụng](#2-công-nghệ-sử-dụng)
-- [3. Chuẩn bị trước khi bắt đầu](#3-chuẩn-bị-trước-khi-bắt-đầu)
-  - [3.1 Tạo tài khoản & Space Storyblok](#31-tạo-tài-khoản--space-storyblok)
-  - [3.2 Cài đặt Source Project](#32-cài-đặt-source-project)
-  - [3.3 Cấu hình biến môi trường](#33-cấu-hình-biến-môi-trường)
-  - [3.4 Cấu hình CLI Scripts](#34-cấu-hình-cli-scripts)
+- [1. Objective](#1-objective)
+- [2. Tech Stack](#2-tech-stack)
+- [3. Getting Started](#3-getting-started)
+  - [3.1 Create Storyblok Account & Space](#31-create-storyblok-account--space)
+  - [3.2 Install Source Project](#32-install-source-project)
+  - [3.3 Configure Environment Variables](#33-configure-environment-variables)
+  - [3.4 Configure CLI Scripts](#34-configure-cli-scripts)
 - [4. Storyblok CLI & Sync](#4-storyblok-cli--sync)
-  - [4.1 Đăng nhập CLI](#41-đăng-nhập-cli)
+  - [4.1 CLI Login](#41-cli-login)
   - [4.2 Push Components](#42-push-components)
-- [5. Khởi tạo Content](#5-khởi-tạo-content)
-  - [5.1 Cấu trúc thư mục Pages](#51-cấu-trúc-thư-mục-pages)
-  - [5.2 Tạo Global Components](#52-tạo-global-components-header--footer)
-- [6. Quy trình phát triển (Workflow)](#6-quy-trình-phát-triển-workflow)
-  - [6.1 Concept Block](#61-concept-block)
-  - [6.2 Tạo Schema Mới](#62-tạo-schema-mới)
+- [5. Initialize Content](#5-initialize-content)
+  - [5.1 Pages Folder Structure](#51-pages-folder-structure)
+  - [5.2 Create Global Components](#52-create-global-components-header--footer)
+- [6. Development Workflow](#6-development-workflow)
+  - [6.1 Block Concepts](#61-block-concepts)
+  - [6.2 Create New Schema](#62-create-new-schema)
   - [6.3 Field Types](#63-field-types)
   - [6.4 Coding Section](#64-coding-section)
-- [7. Kiểm tra & Hoàn tất](#7-kiểm-tra--hoàn-tất)
+- [7. Testing & Completion](#7-testing--completion)
 
 ---
 
-## 1. Mục tiêu
+## 1. Objective
 
-Tài liệu này hướng dẫn quy trình khởi tạo một project mới sử dụng:
+This documentation guides you through the process of initializing a new project using:
 
-- **Base source project**: Next.js + Tailwind setup sẵn.
-- **Storyblok Space**: CMS quản lý nội dung.
-- **Storyblok CLI**: Công cụ đồng bộ components (schema) giữa code và CMS.
+- **Base source project**: Pre-configured Next.js + Tailwind setup.
+- **Storyblok Space**: CMS for content management.
+- **Storyblok CLI**: Tool to sync components (schemas) between code and CMS.
 
-**Đối tượng:** Frontend Developer.
+**Target Audience:** Frontend Developers.
 
 ---
 
-## 2. Công nghệ sử dụng
+## 2. Tech Stack
 
 - **Framework**: [Next.js 15+](https://nextjs.org/)
 - **CMS**: [Storyblok](https://www.storyblok.com/)
@@ -55,20 +57,20 @@ Tài liệu này hướng dẫn quy trình khởi tạo một project mới sử
 
 ---
 
-## 3. Chuẩn bị trước khi bắt đầu
+## 3. Getting Started
 
-### 3.1 Tạo tài khoản & Space Storyblok
+### 3.1 Create Storyblok Account & Space
 
-1.  Đăng nhập vào **[Storyblok Dashboard](https://app.storyblok.com/)**.
-2.  Tạo một **Space mới** (Chọn _Create new space_).
-3.  Truy cập: **Settings → General**.
-4.  Lấy các thông tin quan trọng:
+1.  Login to **[Storyblok Dashboard](https://app.storyblok.com/)**.
+2.  Create a **new Space** (Select _Create new space_).
+3.  Navigate to: **Settings → General**.
+4.  Get the important information:
     - 🔑 **Space ID**
     - 🔑 **Access Token** (Location: Settings -> Access Tokens -> Preview)
 
-### 3.2 Cài đặt Source Project
+### 3.2 Install Source Project
 
-Clone project và cài đặt dependencies:
+Clone the project and install dependencies:
 
 ```bash
 # Clone repository
@@ -79,25 +81,25 @@ cd base-storyblok-setup
 npm install
 ```
 
-### 3.3 Cấu hình biến môi trường
+### 3.3 Configure Environment Variables
 
-Tạo file `.env` từ file mẫu:
+Create `.env` file from the template:
 
 ```bash
 cp .env.example .env
 ```
 
-Mở file `.env` và cập nhật Preview Token của bạn:
+Open the `.env` file and update your Preview Token:
 
 ```properties
 NEXT_PUBLIC_STORYBLOK_CONTENT_API_ACCESS_TOKEN=your_preview_token_here
 ```
 
-### 3.4 Cấu hình CLI Scripts
+### 3.4 Configure CLI Scripts
 
-Cập nhật `package.json` để thêm Space ID vào các lệnh CLI, giúp việc đồng bộ nhanh chóng hơn.
+Update `package.json` to add your Space ID to CLI commands for faster synchronization.
 
-Mở `package.json` và tìm phần `scripts`, thay thế `<SPACE_ID>`:
+Open `package.json` and find the `scripts` section, replace `<SPACE_ID>`:
 
 ```json
 "scripts": {
@@ -108,70 +110,84 @@ Mở `package.json` và tìm phần `scripts`, thay thế `<SPACE_ID>`:
 }
 ```
 
-> ⚠️ **Lưu ý:** `123456` là ví dụ, hãy điền Space ID thực tế của bạn.
+> ⚠️ **Note:** `123456` is an example, use your actual Space ID.
 
 ---
 
 ## 4. Storyblok CLI & Sync
 
-### 4.1 Đăng nhập CLI
+### 4.1 CLI Login
 
-Cài đặt Storyblok CLI global (nếu chưa có) và đăng nhập:
+Install Storyblok CLI globally (if not already installed) and login:
 
 ```bash
-# Cài đặt CLI
+# Install CLI
 npm install -g @storyblok/cli
 
-# Đăng nhập
+# Login
 storyblok login
 
-# Kiểm tra user hiện tại
+# Check current user
 storyblok user
 ```
 
 ### 4.2 Push Components
 
-Trước tiên bạn cần đổi tên folder `290198001730778` trong `.storyblok/components` thành `space_id` của bạn. Ví dụ `.storyblok/components/123456`. (Cách này giúp ta không cần quyền truy cập vẫn có thể copy các schema từ code lên Space)
+First, rename the folder `290198001730778` in `.storyblok/components` to your `space_id`. For example `.storyblok/components/123456`. (This allows you to copy schemas from code to Space without needing access permissions)
 
-Đẩy toàn bộ cấu trúc Components (Schema) từ code lên Space mới:
+Push the entire Component (Schema) structure from code to the new Space:
 
 ```bash
 npm run sb:push
 ```
 
-**Tác dụng:**
+**Effects:**
 
-- Đồng bộ tất cả Block Schema từ thư mục `.storyblok` lên CMS.
-- Giúp bạn có sẵn các Blocks để tạo nội dung ngay lập tức.
+- Syncs all Block Schemas from the `.storyblok` directory to CMS.
+- Provides you with ready-to-use Blocks for content creation immediately.
+
+### 4.3 Clean up
+
+After pushing, run the following command to update components and types:
+
+```bash
+npm run sb:refresh
+```
+
+Open the .storyblok/types folder and delete folders other than `290198001730778` which is the types folder of the base space.
+
+### 4.4 Update Type Path
+
+In the `src/types/index.ts` file, update the path to the types folder of the new space. For example: export type \* from `../../.storyblok/types/<YOUR_SPACE_ID>/storyblok-components`
 
 ---
 
-## 5. Khởi tạo Content
+## 5. Initialize Content
 
-Do CLI không clone được Content (Stories), bạn cần tạo cấu trúc cơ bản thủ công trên Dashboard.
+Since the CLI cannot clone Content (Stories), you need to manually create the basic structure on the Dashboard.
 
-### 5.1 Cấu trúc thư mục Pages
+### 5.1 Pages Folder Structure
 
-1.  Vào tab **Content**.
-2.  Tạo **Folder** mới:
+1.  Go to the **Content** tab.
+2.  Create a new **Folder**:
     - **Name**: `Pages`
-    - **Slug**: `pages` (⚠️ **Quan trọng**: Giữ nguyên slug này để routing hoạt động đúng).
+    - **Slug**: `pages` (⚠️ **Important**: Keep this slug for proper routing).
     - **Content Type**: `Root` (default).
-3.  Vào folder `Pages` vừa tạo, tạo **Story** mới:
+3.  Enter the newly created `Pages` folder, create a new **Story**:
     - **Name**: `Home`
     - **Slug**: `home`
     - **Content Type**: `Page`
 4.  **Edit Home**:
-    - Thêm block **Hero** vào body.
-    - Điền nội dung mẫu và nhấn **Publish**.
+    - Add a **Hero** block to the body.
+    - Fill in sample content and click **Publish**.
 
-### 5.2 Tạo Global Components (Header & Footer)
+### 5.2 Create Global Components (Header & Footer)
 
-1.  Quay lại **Content** (Root).
-2.  Tạo **Folder** mới:
+1.  Return to **Content** (Root).
+2.  Create a new **Folder**:
     - **Name**: `Global`
-    - **Slug**: `global` (⚠️ **Quan trọng**).
-3.  Vào folder `Global`, tạo 2 Stories:
+    - **Slug**: `global` (⚠️ **Important**).
+3.  Enter the `Global` folder, create 2 Stories:
     - **Header**:
       - Name: `header`
       - Slug: `header`
@@ -185,41 +201,41 @@ Do CLI không clone được Content (Stories), bạn cần tạo cấu trúc c�
 
 ---
 
-## 6. Quy trình phát triển (Workflow)
+## 6. Development Workflow
 
-### 6.1 Concept Block
+### 6.1 Block Concepts
 
-- **Nestable Block**: Block có thể lồng vào block khác (VD: `Grid`, `Column`).
-- **Content Type**: Block đứng độc lập, có URL riêng (VD: `Page`, `Header`, `Footer`).
-- **Universal Block**: Kết hợp cả 2 loại trên.
+- **Nestable Block**: Blocks that can be nested within other blocks (e.g., `Grid`, `Column`).
+- **Content Type**: Standalone blocks with their own URL (e.g., `Page`, `Header`, `Footer`).
+- **Universal Block**: A combination of both types above.
 
 💡 **Best Practice**:
 
-- Landing page nên được cấu thành từ các **Section Blocks** (VD: `Hero`, `Features`, `Testimonials`).
-- Các thành phần nhỏ hơn (Button, Card) nên là sub-blocks hoặc fields trong Section Block.
+- Landing pages should be composed of **Section Blocks** (e.g., `Hero`, `Features`, `Testimonials`).
+- Smaller components (Button, Card) should be sub-blocks or fields within Section Blocks.
 
-### 6.2 Tạo Schema Mới
+### 6.2 Create New Schema
 
-1.  Vào **Block Library** trên Dashboard.
-2.  Tạo **New Block** -> Đặt tên (Technical Name: snake_case, VD: `feature_section`).
-3.  Thêm các fields cần thiết (Title, Description, Image...).
-4.  Lưu lại.
+1.  Go to **Block Library** on the Dashboard.
+2.  Create a **New Block** -> Name it (Technical Name: snake_case, e.g., `feature_section`).
+3.  Add necessary fields (Title, Description, Image...).
+4.  Save.
 
-### 6.3 Field Types phổ biến
+### 6.3 Common Field Types
 
-| Type              | Mô tả                                     |
-| :---------------- | :---------------------------------------- |
-| **Text**          | Chuỗi ký tự ngắn.                         |
-| **Rich Text**     | Văn bản có định dạng, hỗ trợ lồng blocks. |
-| **Asset**         | Hình ảnh, Video, File.                    |
-| **Boolean**       | Đúng/Sai (Toggle).                        |
-| **Link**          | Internal hoặc External link.              |
-| **Blocks**        | Cho phép lồng các blocks khác vào (Nest). |
-| **Single-Option** | Chọn 1 giá trị (Dropdown/Radio).          |
+| Type              | Description                             |
+| :---------------- | :-------------------------------------- |
+| **Text**          | Short text string.                      |
+| **Rich Text**     | Formatted text, supports nested blocks. |
+| **Asset**         | Images, Videos, Files.                  |
+| **Boolean**       | True/False (Toggle).                    |
+| **Link**          | Internal or External link.              |
+| **Blocks**        | Allows nesting other blocks.            |
+| **Single-Option** | Select one value (Dropdown/Radio).      |
 
 ### 6.4 Coding Section
 
-Sau khi tạo Schema trên Storyblok:
+After creating a Schema on Storyblok:
 
 1.  **Pull Components & Generate Types**:
 
@@ -227,10 +243,10 @@ Sau khi tạo Schema trên Storyblok:
     npm run sb:refresh
     ```
 
-    _(Lệnh này sẽ pull schema mới về và cập nhật file TypeScript definition)_
+    _(This command pulls the new schema and updates TypeScript definition files)_
 
-2.  **Tạo Component React**:
-    Tạo file `src/components/sections/feature_section.tsx`:
+2.  **Create React Component**:
+    Create file `src/components/sections/feature_section.tsx`:
 
     ```tsx
     import { storyblokEditable } from '@storyblok/react';
@@ -256,26 +272,24 @@ Sau khi tạo Schema trên Storyblok:
     ```
 
 3.  **Map Component**:
-    Đăng ký component mới trong `src/lib/storyblok.ts` hoặc nơi quản lý mapping.
+    Register the new component in `src/lib/storyblok.ts` or wherever component mapping is managed.
 
 ---
 
-## 7. Kiểm tra & Hoàn tất
+## 7. Testing & Completion
 
-Khởi chạy project local để kiểm tra kết quả:
+Start the local project to check the results:
 
 ```bash
 npm run dev
 ```
 
-Truy cập `http://localhost:3000`. Nếu cài đặt đúng:
+Visit `http://localhost:3000`. If configured correctly:
 
-- ✅ Trang chủ hiển thị nội dung từ `Pages/Home`.
-- ✅ Header/Footer hiển thị từ `Global`.
-- ✅ Không có lỗi console liên quan đến thiếu component.
+- ✅ Homepage displays content from `Pages/Home`.
+- ✅ Header/Footer display from `Global`.
+- ✅ No console errors related to missing components.
 
 ---
 
-> **Hỗ trợ:** Nếu gặp vấn đề, vui lòng liên hệ team leader hoặc kiểm tra lại [Documentation Storyblok](https://www.storyblok.com/docs/api/content-delivery).
-
-> **Lưu ý:** Tài liệu vẫn đang được hoàn thiện. Nếu có vấn đề vui lòng liên hệ qua kênh nội bộ.
+> **Support:** If you encounter any issues, please contact through internal channels or check the [Storyblok Documentation](https://www.storyblok.com/docs/api/content-delivery).
