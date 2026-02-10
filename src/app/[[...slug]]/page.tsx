@@ -5,6 +5,7 @@ import { resolveSlug } from '@/lib/storyblok-helpers';
 import { ISbStoryData } from '@storyblok/react';
 import { StoryblokStory } from '@storyblok/react/rsc';
 import { ArrowUpRightIcon, SearchXIcon } from 'lucide-react';
+import { Metadata } from 'next';
 import Link from 'next/link';
 
 interface PageProps {
@@ -30,7 +31,7 @@ async function getStoryData(params: PageProps['params']) {
   }
 }
 
-export const generateMetadata = async ({ params }: PageProps) => {
+export const generateMetadata = async ({ params }: PageProps): Promise<Metadata> => {
   const story = await getStoryData(params);
 
   if (!story) {
