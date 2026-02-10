@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@/components/ui/empty';
-import { getStoryblokApi } from '@/lib/storyblok';
+import { getCachedPageContent } from '@/lib/storyblok-cached';
+import { resolveSlug } from '@/lib/storyblok-helpers';
 import { ISbStoryData } from '@storyblok/react';
 import { StoryblokStory } from '@storyblok/react/rsc';
 import { ArrowUpRightIcon, SearchXIcon } from 'lucide-react';
@@ -18,14 +19,10 @@ export const revalidate = 3600;
 // Helper function to fetch story data
 async function getStoryData(params: PageProps['params']) {
   const { slug } = await params;
-  const fullSlug = slug ? (slug.length > 0 ? slug.join('/') : '/pages/home') : '/pages/home';
-  const fullSlugPages = fullSlug?.includes('pages') ? fullSlug : `/pages/${fullSlug}`;
+  const fullSlug = resolveSlug(slug);
 
-  const storyblokApi = getStoryblokApi();
   try {
-    const { data } = await storyblokApi.get(`cdn/stories/${fullSlugPages}`, {
-      version: 'published',
-    });
+    const data = await getCachedPageContent(fullSlug);
     return data.story as ISbStoryData;
   } catch (error) {
     console.error('Error fetching story data:', error);
@@ -38,17 +35,16 @@ export const generateMetadata = async ({ params }: PageProps) => {
 
   if (!story) {
     return {
-      title: 'Dr. Denise Hamlin',
-      description:
-        'I am dedicated to helping you achieve a healthy, confident smile. A great smile is not just about appearance—it can improve comfort, boost self-esteem, and enhance your quality of life. My focus is on providing personalized care that supports both your oral health and overall well-being.',
+      title: '404 - Page Not Found',
+      description: 'Your page could not be found. Please check the URL or create new content in Storyblok.',
     };
   }
 
   return {
-    title: story?.content?.meta_title || 'Dr. Denise Hamlin',
+    title: story?.content?.meta_title || '404 - Page Not Found',
     description:
       story?.content?.meta_description ||
-      'I am dedicated to helping you achieve a healthy, confident smile. A great smile is not just about appearance—it can improve comfort, boost self-esteem, and enhance your quality of life. My focus is on providing personalized care that supports both your oral health and overall well-being.',
+      'Your page could not be found. Please check the URL or create new content in Storyblok.',
   };
 };
 

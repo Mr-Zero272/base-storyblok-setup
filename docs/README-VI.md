@@ -274,7 +274,14 @@ Sau khi tạo Schema trên Storyblok:
 
 ---
 
-## 7. Kiểm tra & Hoàn tất
+### 7. Kiến trúc Cache
+
+Project này sử dụng kiến trúc invalidation cache dựa trên Storyblok webhooks.
+Khi một story được publish hoặc unpublish trong Storyblok, một webhook sẽ được gửi đến API route `src/app/api/revalidate/route.ts`.
+API route này sau đó sẽ revalidate cache cho story cụ thể đã được publish hoặc unpublish.
+Trong dev mode, webhook không được trigger, vì vậy bạn cần revalidate cache thủ công bằng cách GET request đến `http://localhost:3000/api/revalidate?slug=<SLUG>` hoặc chỉnh sửa tham số revalidate time trong `src/lib/storyblok-cached.ts`.
+
+## 8. Kiểm tra & Hoàn tất
 
 Khởi chạy project local để kiểm tra kết quả:
 

@@ -276,7 +276,14 @@ After creating a Schema on Storyblok:
 
 ---
 
-## 7. Testing & Completion
+## 7. Cache Architecture
+
+This project uses a cache invalidation architecture based on Storyblok webhooks.
+When a story is published or unpublished in Storyblok, a webhook is sent to the Next.js API route `src/app/api/revalidate/route.ts`.
+This API route then revalidates the cache for the specific story that was published or unpublished.
+In dev mode, the webhook is not triggered, so you need to manually revalidate the cache by the get request to `http://localhost:3000/api/revalidate?slug=<SLUG>` or edit the revalidate time parameter in `src/lib/storyblok-cached.ts`.
+
+## 8. Testing & Completion
 
 Start the local project to check the results:
 

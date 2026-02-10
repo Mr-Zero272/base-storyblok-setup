@@ -1,21 +1,22 @@
 import { ISbStoriesParams } from '@storyblok/react';
 import { unstable_cache } from 'next/cache';
 import { getStoryblokApi } from './storyblok';
+import { getCacheTags } from './storyblok-helpers';
 
 /**
- * Cached Storyblok API fetcher
+ * Unified cached Storyblok API fetcher
+ * Uses consistent tag naming: direct slug (e.g., "global/header", "pages/home")
  * Automatically caches API responses with configurable revalidation
  */
 export const getCachedStoryblokData = async (
   slug: string,
   params: ISbStoriesParams = {},
-  revalidateTime: number = 3600, // Default: 1 hour
+  revalidateTime: number | false = process.env.NODE_ENV === 'development' ? 60 : 3600, // Default: 1 hour, 60 seconds in dev mode, false = no revalidation
 ) => {
-  const cacheKey = `storyblok-${slug}-${JSON.stringify(params)}-${1}`;
+  const storyblokApi = getStoryblokApi();
 
   const fetchData = unstable_cache(
     async () => {
-      const storyblokApi = getStoryblokApi();
       const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
         ...params,
         version: params.version || 'published',
@@ -23,10 +24,10 @@ export const getCachedStoryblokData = async (
       });
       return data;
     },
-    [cacheKey],
+    [slug, JSON.stringify(params)],
     {
       revalidate: revalidateTime,
-      tags: [`storyblok-${slug}`],
+      tags: getCacheTags(slug), // Returns [slug, 'storyblok']
     },
   );
 
@@ -34,12 +35,23 @@ export const getCachedStoryblokData = async (
 };
 
 /**
- * Cached function specifically for global content (header, footer, etc.)
+ * Cached function for global content (header, footer, etc.)
  * Uses longer cache time as global content changes less frequently
  */
 export const getCachedGlobalContent = async (
   slug: string,
-  revalidateTime: number = 7200, // Default: 2 hours for global content
+  revalidateTime: number = process.env.NODE_ENV === 'development' ? 60 : 7200, // Default: 2 hours for global content, 60 seconds in dev mode
 ) => {
   return getCachedStoryblokData(`global/${slug}`, { version: 'published' }, revalidateTime);
+};
+
+/**
+ * Cached function for page content
+ * Standard cache time for frequently changing content
+ */
+export const getCachedPageContent = async (
+  slug: string,
+  revalidateTime: number = process.env.NODE_ENV === 'development' ? 60 : 3600, // Default: 1 hour, 60 seconds in dev mode
+) => {
+  return getCachedStoryblokData(slug, { version: 'published' }, revalidateTime);
 };
