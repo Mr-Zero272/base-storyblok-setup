@@ -1,6 +1,12 @@
 import { normalizeSlug, slugToPath } from '@/lib/slug';
+import { createHmac } from 'crypto';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
+
+const getSignature = (body: string) =>
+  createHmac('sha1', process.env.WEBHOOK_SECRET || '')
+    .update(body)
+    .digest('hex');
 
 /**
  * POST endpoint for Storyblok webhook
@@ -12,7 +18,16 @@ import { NextRequest, NextResponse } from 'next/server';
  */
 export async function POST(request: NextRequest) {
   try {
+    const signature = await request.headers.get('webhook-signature');
     const raw = await request.text();
+    const generateSignature = getSignature(raw);
+    const isValid = generateSignature === signature;
+
+    if (!isValid) {
+      console.error('❌ Invalid webhook signature');
+      return NextResponse.json({ revalidated: false, error: 'Invalid signature' }, { status: 401 });
+    }
+
     const body = raw ? JSON.parse(raw) : {};
 
     // console.log('Storyblok webhook received:', {
