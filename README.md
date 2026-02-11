@@ -283,7 +283,18 @@ When a story is published or unpublished in Storyblok, a webhook is sent to the 
 This API route then revalidates the cache for the specific story that was published or unpublished.
 In dev mode, the webhook is not triggered, so you need to manually revalidate the cache by the get request to `http://localhost:3000/api/revalidate?slug=<SLUG>` or edit the revalidate time parameter in `src/lib/storyblok-cached.ts`.
 
-## 8. Testing & Completion
+## 8. Setup webhook in storyblok dashboard
+
+1. Go to the **Settings** tab in Storyblok.
+2. Click on **Webhooks** in the left sidebar.
+3. Click on **New Webhook**.
+4. Enter the webhook URL: `http://yourdomain.com/api/revalidate`. (note: webhook not working in localhost)
+5. Select the events you want to trigger the webhook for: **Story Published**, **Story Unpublished**, **Story Created**, **Story Updated**.
+6. Click on **Create Webhook**.
+
+> You can setup this part after finishing and deploying to a domain.
+
+## 9. Testing & Completion
 
 Start the local project to check the results:
 
