@@ -13,6 +13,10 @@ export function normalizeSlug(slug: string): string {
 export function slugToPath(slug: string): string {
   // Remove 'pages/' prefix if exists
   const pathSlug = slug.startsWith('pages/') ? slug.slice(6) : slug;
-  // Ensure leading slash
-  return pathSlug ? `/${pathSlug}` : '/';
+  // Handle home page: "home" or empty -> "/"
+  if (!pathSlug || pathSlug === 'home') {
+    return '/';
+  }
+  // Ensure leading slash for other pages
+  return `/${pathSlug}`;
 }
