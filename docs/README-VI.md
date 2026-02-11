@@ -270,7 +270,7 @@ Sau khi tạo Schema trên Storyblok:
     ```
 
 3.  **Map Component**:
-    Đăng ký component mới trong `src/lib/storyblok.ts` hoặc nơi quản lý mapping.
+    Đăng ký component mới trong `src/lib/storyblok/api.ts` hoặc nơi quản lý mapping.
 
 ---
 

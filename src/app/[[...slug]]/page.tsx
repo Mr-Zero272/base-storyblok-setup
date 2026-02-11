@@ -1,12 +1,9 @@
-import { Button } from '@/components/ui/button';
-import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@/components/ui/empty';
-import { getCachedPageContent } from '@/lib/storyblok-cached';
-import { resolveSlug } from '@/lib/storyblok-helpers';
+import { getCachedPageContent } from '@/lib/storyblok/storyblok-cached';
+import { resolveSlug } from '@/lib/storyblok/storyblok-helpers';
 import { ISbStoryData } from '@storyblok/react';
 import { StoryblokStory } from '@storyblok/react/rsc';
-import { ArrowUpRightIcon, SearchXIcon } from 'lucide-react';
 import { Metadata } from 'next';
-import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 interface PageProps {
   params: Promise<{
@@ -23,7 +20,7 @@ async function getStoryData(params: PageProps['params']) {
   const fullSlug = resolveSlug(slug);
 
   try {
-    const data = await getCachedPageContent(fullSlug);
+    const data = await getCachedPageContent({ slug: fullSlug });
     return data.story as ISbStoryData;
   } catch (error) {
     console.error('Error fetching story data:', error);
@@ -53,35 +50,7 @@ export default async function Page({ params }: PageProps) {
   const story = await getStoryData(params);
 
   if (!story) {
-    return (
-      <Empty>
-        <EmptyHeader>
-          <EmptyMedia variant="icon">
-            <SearchXIcon />
-          </EmptyMedia>
-          <EmptyTitle>No Story Yet</EmptyTitle>
-          <EmptyDescription>
-            We couldn&apos;t find the page you were looking for. Please check the URL or create new content in
-            Storyblok.
-          </EmptyDescription>
-        </EmptyHeader>
-        <EmptyContent className="flex-row justify-center gap-2">
-          <Button asChild>
-            <Link href="/">Home</Link>
-          </Button>
-          <Button variant="outline">
-            <Link href="http://app.storyblok.com/" target="_blank" rel="noopener noreferrer">
-              Go to Storyblok
-            </Link>
-          </Button>
-        </EmptyContent>
-        <Button variant="link" asChild className="text-muted-foreground" size="sm">
-          <Link href="http://storyblok.com/" target="_blank" rel="noopener noreferrer">
-            Learn More <ArrowUpRightIcon />
-          </Link>
-        </Button>
-      </Empty>
-    );
+    return notFound();
   }
 
   return <StoryblokStory story={story} />;

@@ -272,7 +272,7 @@ After creating a Schema on Storyblok:
     ```
 
 3.  **Map Component**:
-    Register the new component in `src/lib/storyblok.ts` or wherever component mapping is managed.
+    Register the new component in `src/lib/storyblok/api.ts` or wherever component mapping is managed.
 
 ---
 

@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { getCachedGlobalContent } from '@/lib/storyblok-cached';
+import { getCachedGlobalContent } from '@/lib/storyblok/storyblok-cached';
 import { Header as HeaderType } from '@/types/storyblok';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -7,7 +7,7 @@ import DesktopNavigation from './components/desktop-navigation';
 import MobileNavigation from './components/mobile-navigation';
 
 const Header = async () => {
-  const rawData = await getCachedGlobalContent('header');
+  const rawData = await getCachedGlobalContent({ slug: 'header' });
   const { logo, navigation, cta_label, cta_link } = rawData.story.content as HeaderType;
 
   return (

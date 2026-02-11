@@ -1,5 +1,5 @@
 import { StoryblokRichTextNode } from '@storyblok/react';
-import { StoryblokMultilink } from '../../.storyblok/types/storyblok';
+import { StoryblokMultilink } from '../../../.storyblok/types/storyblok';
 
 export function resolveSlug(slug?: string[]) {
   const fullSlug = slug ? (slug.length > 0 ? slug.join('/') : '/pages/home') : '/pages/home';

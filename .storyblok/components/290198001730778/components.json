@@ -437,7 +437,7 @@
     "display_name": null,
     "description": "",
     "created_at": "2026-02-06T19:00:17.550Z",
-    "updated_at": "2026-02-06T19:00:17.550Z",
+    "updated_at": "2026-02-06T21:01:12.696Z",
     "id": 142191892695908,
     "schema": {
       "title": {
@@ -454,6 +454,11 @@
         "type": "asset",
         "pos": 2,
         "id": "qcpn18N9T7iENYqE5sqR9w"
+      },
+      "link": {
+        "type": "multilink",
+        "pos": 3,
+        "id": "aRGJdKhBRTKK4jf9KefFOQ"
       }
     },
     "image": null,

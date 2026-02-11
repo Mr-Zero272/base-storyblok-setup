@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import AnimateOnScroll from '../shared/animate-on-scroll';
 import RichText from '../shared/rich-text';
-import StackedImage from '../shared/stack-image';
 import { Button } from '../ui/button';
 
 interface Props {
@@ -18,18 +17,12 @@ const SplitContentSection = ({ blok }: Props) => {
     image,
     background_color,
     media_position,
-    stack_image,
     cta_label,
     cta_link,
-    title_bottom_line,
-    title_bottom_line_color,
-    stack_background,
-    sub_title,
     no_padding_y,
     image_aspect,
     variant,
     extra_padding_top,
-    background,
   } = blok;
 
   if (media_position === 'cover') {
@@ -65,14 +58,6 @@ const SplitContentSection = ({ blok }: Props) => {
   if (variant === 'image_overflow') {
     return (
       <div className="relative z-50 lg:h-[442px]">
-        {background?.filename && (
-          <Image
-            src={background?.filename}
-            alt="Background"
-            fill
-            className="absolute top-0 left-0 -z-10 h-full w-full object-cover"
-          />
-        )}
         <div
           className="absolute inset-0 -z-5 opacity-85"
           style={background_color ? { backgroundColor: background_color } : {}}
@@ -91,22 +76,12 @@ const SplitContentSection = ({ blok }: Props) => {
           <AnimateOnScroll
             variant={media_position === 'left' ? 'fadeRight' : 'fadeLeft'}
             duration={0.7}
-            className={cn('flex-1 space-y-2', {
-              'space-y-[31px]': title_bottom_line,
-            })}
+            className="flex-1 space-y-2"
           >
             <div className="space-y-2">
               <h2 className="heading-2">{title}</h2>
-              {sub_title && <h3 className="paragraph leading-[150%]">{sub_title}</h3>}
             </div>
-            {title_bottom_line && (
-              <div
-                className="h-0.5 max-w-[245px]"
-                style={{
-                  background: title_bottom_line_color || '#2E2F2E',
-                }}
-              />
-            )}
+
             <RichText doc={description} />
           </AnimateOnScroll>
           <AnimateOnScroll
@@ -137,14 +112,6 @@ const SplitContentSection = ({ blok }: Props) => {
 
   return (
     <div data-variant={variant || 'default'} className="relative overflow-hidden">
-      {background?.filename && (
-        <Image
-          src={background?.filename}
-          alt="Background"
-          fill
-          className="absolute top-0 left-0 -z-10 h-full w-full object-cover"
-        />
-      )}
       <div
         className="absolute inset-0 -z-5"
         style={
@@ -166,22 +133,11 @@ const SplitContentSection = ({ blok }: Props) => {
         <AnimateOnScroll
           variant={media_position === 'left' ? 'fadeRight' : 'fadeLeft'}
           duration={0.7}
-          className={cn('flex-1 space-y-2', {
-            'space-y-[31px]': title_bottom_line,
-          })}
+          className="flex-1 space-y-2"
         >
           <div className="space-y-2">
             <h2 className="heading-2">{title}</h2>
-            {sub_title && <h3 className="paragraph leading-[150%]">{sub_title}</h3>}
           </div>
-          {title_bottom_line && (
-            <div
-              className="h-0.5 max-w-[245px]"
-              style={{
-                background: title_bottom_line_color || '#2E2F2E',
-              }}
-            />
-          )}
           <RichText doc={description} />
         </AnimateOnScroll>
         <AnimateOnScroll
@@ -190,44 +146,20 @@ const SplitContentSection = ({ blok }: Props) => {
           delay={0.2}
           className="flex-1"
         >
-          {stack_image && (
-            <StackedImage
-              imageUrl={image?.filename || ''}
-              colors={['#E5B4391A', '#E5B43933', '#E5B43966']}
-              className="aspect-466/547"
-              variant={
-                stack_background
-                  ? media_position === 'left'
-                    ? 'background_stack_left_bottom'
-                    : 'background_stack_right'
-                  : 'default'
-              }
-              stack_background={stack_background?.filename || ''}
-              style={
-                image_aspect && image_aspect?.slice(7)
-                  ? {
-                      aspectRatio: image_aspect?.slice(7),
-                    }
-                  : {}
-              }
-            />
-          )}
-          {!stack_image && (
-            <Image
-              src={image?.filename || ''}
-              alt={image?.alt || 'Image'}
-              width={600}
-              height={400}
-              className={cn('aspect-466/547 w-full object-cover')}
-              style={
-                image_aspect && image_aspect?.slice(7)
-                  ? {
-                      aspectRatio: image_aspect?.slice(7),
-                    }
-                  : {}
-              }
-            />
-          )}
+          <Image
+            src={image?.filename || ''}
+            alt={image?.alt || 'Image'}
+            width={600}
+            height={400}
+            className={cn('aspect-466/547 w-full object-cover')}
+            style={
+              image_aspect && image_aspect?.slice(7)
+                ? {
+                    aspectRatio: image_aspect?.slice(7),
+                  }
+                : {}
+            }
+          />
         </AnimateOnScroll>
       </div>
     </div>
