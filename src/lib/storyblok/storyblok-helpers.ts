@@ -3,7 +3,7 @@ import { StoryblokMultilink } from '../../../.storyblok/types/storyblok';
 
 export function resolveSlug(slug?: string[]) {
   const fullSlug = slug ? (slug.length > 0 ? slug.join('/') : '/pages/home') : '/pages/home';
-  return fullSlug.includes('pages') ? fullSlug : `pages/${fullSlug}`;
+  return fullSlug.includes('pages') ? fullSlug : `/pages/${fullSlug}`;
 }
 
 export function checkRichTextEmpty(richText?: StoryblokRichTextNode) {
