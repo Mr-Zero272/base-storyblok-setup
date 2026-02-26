@@ -21,15 +21,19 @@
 - [4. Storyblok CLI & Sync](#4-storyblok-cli--sync)
   - [4.1 Đăng nhập CLI](#41-đăng-nhập-cli)
   - [4.2 Push Components](#42-push-components)
+  - [4.3 Clean Up](#43-clean-up)
+  - [4.4 Cập nhật đường dẫn Type](#44-cập-nhật-lại-đường-dẫn-type)
 - [5. Khởi tạo Content](#5-khởi-tạo-content)
   - [5.1 Cấu trúc thư mục Pages](#51-cấu-trúc-thư-mục-pages)
-  - [5.2 Tạo Global Components](#52-tạo-global-components-header--footer)
+  - [5.2 Tạo Global Components (Header & Footer)](#52-tạo-global-components-header--footer)
 - [6. Quy trình phát triển (Workflow)](#6-quy-trình-phát-triển-workflow)
   - [6.1 Concept Block](#61-concept-block)
   - [6.2 Tạo Schema Mới](#62-tạo-schema-mới)
-  - [6.3 Field Types](#63-field-types)
+  - [6.3 Field Types phổ biến](#63-field-types-phổ-biến)
   - [6.4 Coding Section](#64-coding-section)
-- [7. Kiểm tra & Hoàn tất](#7-kiểm-tra--hoàn-tất)
+- [7. Kiến trúc Cache](#7-kiến-trúc-cache)
+- [8. Setup Webhook trong Storyblok Dashboard](#8-setup-webhook)
+- [9. Kiểm tra & Hoàn tất](#9-kiểm-tra--hoàn-tất)
 
 ---
 
@@ -281,7 +285,7 @@ Khi một story được publish hoặc unpublish trong Storyblok, một webhook
 API route này sau đó sẽ revalidate cache cho story cụ thể đã được publish hoặc unpublish.
 Trong dev mode, webhook không được trigger, vì vậy bạn cần revalidate cache thủ công bằng cách GET request đến `http://localhost:3000/api/revalidate?slug=<SLUG>` hoặc chỉnh sửa tham số revalidate time trong `src/lib/storyblok-cached.ts`.
 
-## 8. Setup webhook
+## 8. Setup Webhook trong Storyblok Dashboard
 
 1. Vào tab **Settings** trong Storyblok.
 2. Click vào **Webhooks** ở thanh bên trái.

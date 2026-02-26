@@ -23,17 +23,19 @@
 - [4. Storyblok CLI & Sync](#4-storyblok-cli--sync)
   - [4.1 CLI Login](#41-cli-login)
   - [4.2 Push Components](#42-push-components)
+  - [4.3 Clean Up](#43-clean-up)
+  - [4.4 Update Type Path](#44-update-type-path)
 - [5. Initialize Content](#5-initialize-content)
   - [5.1 Pages Folder Structure](#51-pages-folder-structure)
-  - [5.2 Create Global Components](#52-create-global-components-header--footer)
+  - [5.2 Create Global Components (Header & Footer)](#52-create-global-components-header--footer)
 - [6. Development Workflow](#6-development-workflow)
   - [6.1 Block Concepts](#61-block-concepts)
   - [6.2 Create New Schema](#62-create-new-schema)
-  - [6.3 Field Types](#63-field-types)
+  - [6.3 Common Field Types](#63-common-field-types)
   - [6.4 Coding Section](#64-coding-section)
-- [7. Testing & Completion](#7-testing--completion)
-
----
+- [7. Cache Architecture](#7-cache-architecture)
+- [8. Setup Webhook in Storyblok Dashboard](#8-setup-webhook-in-storyblok-dashboard)
+- [9. Testing & Completion](#9-testing--completion)
 
 ## 1. Objective
 
@@ -49,10 +51,9 @@ This documentation guides you through the process of initializing a new project 
 
 ## 2. Tech Stack
 
-- **Framework**: [Next.js 15+](https://nextjs.org/)
+- **Framework**: [Next.js 16+](https://nextjs.org/)
 - **CMS**: [Storyblok](https://www.storyblok.com/)
 - **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
-- **Icons**: Lucide React
 - **Animation**: Motion (Framer Motion)
 
 ---
@@ -283,7 +284,7 @@ When a story is published or unpublished in Storyblok, a webhook is sent to the 
 This API route then revalidates the cache for the specific story that was published or unpublished.
 In dev mode, the webhook is not triggered, so you need to manually revalidate the cache by the get request to `http://localhost:3000/api/revalidate?slug=<SLUG>` or edit the revalidate time parameter in `src/lib/storyblok-cached.ts`.
 
-## 8. Setup webhook in storyblok dashboard
+## 8. Setup Webhook in Storyblok Dashboard
 
 1. Go to the **Settings** tab in Storyblok.
 2. Click on **Webhooks** in the left sidebar.
